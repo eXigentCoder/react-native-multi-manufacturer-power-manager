@@ -67,9 +67,11 @@ public class MultiManufacturerPowerManagerModule extends ReactContextBaseJavaMod
     public void hasIntent(String pkg, String cls, final Promise promise) {
         Intent intent = buildIntentFromStrings(pkg, cls);
         if (reactContext.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
-            return promise.resolve(true);
+            promise.resolve(true);
+            return;
         }
-        return promise.resolve(false);
+        promise.resolve(false);
+        return;
     }
 
     @ReactMethod
@@ -93,7 +95,8 @@ public class MultiManufacturerPowerManagerModule extends ReactContextBaseJavaMod
                 WritableMap map = new WritableNativeMap();
                 map.putString("package", intent.getComponent().getPackageName());
                 map.putString("class", intent.getComponent().getClassName());
-                return promise.resolve(map);
+                promise.resolve(map);
+                return;
             }
         }
         promise.resolve(false);
